@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+
+// Encryption "just put any number dawg, each 1 is a, 2 is b, so on so forth"
+std::string encrypt(const std::string& message, int shift) {
+    std::string result = "";
+
+    for (char ch : message) {
+        if (std::isalpha(ch)) {
+            char base = (std::isupper(ch)) ? 'A' : 'a';
+            result += static_cast<char>((ch - base + shift) % 26 + base);
+        } else {
+            result += ch;
+        }
+    }
+
+    return result;
+}
+
+// Decryption uses "-x"
+std::string decrypt(const std::string& message, int shift) {
+    // Decryption is the same as encryption with a negative shift
+    return encrypt(message, -shift);
+}
+
+int main() {
+    std::string message;
+    int shift;
+
+    // Input message
+    std::cout << "Enter the message: ";
+    std::getline(std::cin, message);
+
+    // Input shift value
+    std::cout << "Enter the shift value: ";
+    std::cin >> shift;
+
+    // Encrypt the message
+    std::string encryptedMessage = encrypt(message, shift);
+    std::cout << "Encrypted Message: " << encryptedMessage << std::endl;
+
+    // Decrypt the message
+    std::string decryptedMessage = decrypt(encryptedMessage, shift);
+    std::cout << "Decrypted Message: " << decryptedMessage << std::endl;
+
+    return 0;
+}
